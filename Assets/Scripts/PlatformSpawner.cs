@@ -10,17 +10,25 @@ public class PlatformSpawner : MonoBehaviour
     private Vector3 nextSpawnPosition;
     private readonly Queue<GameObject> spawnedPlatforms = new Queue<GameObject>();
 
+    public struct SpawnResult
+    {
+        public Vector3 TargetPosition;
+        public PlatformShake Platform;
+    }
+
     private void Start()
     {
         nextSpawnPosition = new Vector3(0, 0, distanceBetweenPlatforms);
     }
 
-    public Vector3 SpawnNextPlatform()
+    public SpawnResult SpawnNextPlatform()
     {
         GameObject newPlatform = Instantiate(platformPrefab, nextSpawnPosition, Quaternion.identity);
         spawnedPlatforms.Enqueue(newPlatform);
 
-        Vector3 targetPosition = newPlatform.transform.position + Vector3.up * 1.2f;
+        PlatformShake platformShake = newPlatform.GetComponent<PlatformShake>();
+
+        Vector3 targetPosition = newPlatform.transform.position + Vector3.up * 1.25f;
 
         nextSpawnPosition += new Vector3(0, 0, distanceBetweenPlatforms);
 
@@ -30,6 +38,10 @@ public class PlatformSpawner : MonoBehaviour
             Destroy(oldPlatform);
         }
 
-        return targetPosition;
+        return new SpawnResult
+        {
+            TargetPosition = targetPosition,
+            Platform = platformShake
+        };
     }
 }

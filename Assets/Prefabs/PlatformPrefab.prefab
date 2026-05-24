@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3850191445328822368}
   - component: {fileID: 773864658424972345}
   - component: {fileID: 5011766779972736516}
+  - component: {fileID: -7228109020392417735}
   m_Layer: 0
   m_Name: PlatformPrefab
   m_TagString: Untagged
@@ -112,3 +113,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-7228109020392417735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161872596882331506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1377c29d32d35dd418b4da9d2398e3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlatformShake
+  duration: 0.25
+  strength: 0.08
