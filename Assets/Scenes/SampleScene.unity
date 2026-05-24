@@ -245,6 +245,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4161872596882331506, guid: 01e903e3cfdd32549b0340ed8219a205, type: 3}
   m_PrefabInstance: {fileID: 601232566634642971}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &252676422 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7228109020392417735, guid: 01e903e3cfdd32549b0340ed8219a205, type: 3}
+  m_PrefabInstance: {fileID: 601232566634642971}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 252676417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1377c29d32d35dd418b4da9d2398e3a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlatformShake
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,7 +799,7 @@ Transform:
   m_GameObject: {fileID: 979677866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.52, z: 0}
+  m_LocalPosition: {x: 0, y: 1.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -807,7 +818,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b12cc40fbd9044082c65a7f0525b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMover
-  moveDirection: 0.25
+  moveDuration: 0.25
+  currentPlatform: {fileID: 252676422}
 --- !u!54 &979677872
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -831,7 +843,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -973,6 +985,7 @@ MonoBehaviour:
   timingBar: {fileID: 550674265}
   platformSpawner: {fileID: 1929021389}
   playerMover: {fileID: 979677871}
+  playerRb: {fileID: 979677872}
 --- !u!114 &1929021387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,6 +1190,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1948952269954256917, guid: 01e903e3cfdd32549b0340ed8219a205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3260218423867456652, guid: 01e903e3cfdd32549b0340ed8219a205, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4161872596882331506, guid: 01e903e3cfdd32549b0340ed8219a205, type: 3}
       propertyPath: m_Name
       value: StartPlatform

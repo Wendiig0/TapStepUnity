@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("GAME OVER");
 
-        // small visual feedback instead of falling
         StartCoroutine(GameOverEffect());
 
         Invoke(nameof(Restart), 1.5f);

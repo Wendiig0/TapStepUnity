@@ -5,6 +5,7 @@ public class PlatformShake : MonoBehaviour
 {
     [SerializeField] private float duration = 0.25f;
     [SerializeField] private float strength = 0.08f;
+    [SerializeField] private GameObject[] crackVisuals;
 
     private Vector3 startPosition;
     private Collider platformCollider;
@@ -12,6 +13,11 @@ public class PlatformShake : MonoBehaviour
     private void Awake()
     {
         platformCollider = GetComponent<Collider>();
+    }
+
+    private void Start()
+    {
+        HideCracks();
     }
 
     public void DisableCollider()
@@ -22,8 +28,23 @@ public class PlatformShake : MonoBehaviour
 
     public void Shake()
     {
+        foreach (GameObject crack in crackVisuals)
+        {
+            if (crack != null)
+                crack.SetActive(true);
+        }
+
         StopAllCoroutines();
         StartCoroutine(ShakeRoutine());
+    }
+
+    public void HideCracks()
+    {
+        foreach (GameObject crack in crackVisuals)
+        {
+            if (crack != null)
+                crack.SetActive(false);
+        }
     }
 
     private IEnumerator ShakeRoutine()
