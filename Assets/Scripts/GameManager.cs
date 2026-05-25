@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlatformSpawner platformSpawner;
     [SerializeField] private PlayerMover playerMover;
     [SerializeField] private Rigidbody playerRb;
+    [SerializeField] private int maxMissesBeforeLose = 3;
 
     private bool isGameOver;
     private int missCount;
+    private int score;
 
     private void Awake()
     {
@@ -57,6 +59,12 @@ public class GameManager : MonoBehaviour
             Debug.Log("PERFECT");
 
             missCount = 0;
+            score++;
+            Debug.Log("Score: " + score);
+
+            timingBar.IncreaseSpeed(0.05f);
+
+            StartCoroutine(PerfectEffect());
 
             PlatformSpawner.SpawnResult result = platformSpawner.SpawnNextPlatform();
             playerMover.MoveTo(result.TargetPosition, result.Platform);
@@ -67,7 +75,7 @@ public class GameManager : MonoBehaviour
 
             missCount++;
 
-            if (missCount == 1)
+            if (missCount < maxMissesBeforeLose)
             {
                 playerMover.CurrentPlatform.Shake();
             }
@@ -109,5 +117,16 @@ public class GameManager : MonoBehaviour
         }
 
         playerMover.transform.position = startPos;
+    }
+
+    private IEnumerator PerfectEffect()
+    {
+        Vector3 originalScale = playerMover.transform.localScale;
+
+        playerMover.transform.localScale = originalScale * 1.1f;
+
+        yield return new WaitForSeconds(0.1f);
+
+        playerMover.transform.localScale = originalScale;
     }
 }

@@ -7,6 +7,10 @@ public class PlatformShake : MonoBehaviour
     [SerializeField] private float strength = 0.08f;
     [SerializeField] private GameObject[] crackVisuals;
 
+    [SerializeField] private Renderer platformRenderer;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color crackedColor = Color.red;
+
     private Vector3 startPosition;
     private Collider platformCollider;
 
@@ -18,6 +22,11 @@ public class PlatformShake : MonoBehaviour
     private void Start()
     {
         HideCracks();
+
+        if (platformRenderer != null)
+        {
+            platformRenderer.material.color = normalColor;
+        }
     }
 
     public void DisableCollider()
@@ -32,6 +41,11 @@ public class PlatformShake : MonoBehaviour
         {
             if (crack != null)
                 crack.SetActive(true);
+        }
+
+        if (platformRenderer != null)
+        {
+            platformRenderer.material.color = crackedColor;
         }
 
         StopAllCoroutines();

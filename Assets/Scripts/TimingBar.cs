@@ -30,4 +30,9 @@ public class TimingBar : MonoBehaviour
             }
         }
     }
+
+    public void IncreaseSpeed(float amount)
+    {
+        speed += amount;
+    }
 }

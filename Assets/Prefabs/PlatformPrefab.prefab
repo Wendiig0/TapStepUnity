@@ -131,7 +131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &404140058240376267
 Transform:
   m_ObjectHideFlags: 0
@@ -358,3 +358,6 @@ MonoBehaviour:
   crackVisuals:
   - {fileID: 1948952269954256917}
   - {fileID: 3260218423867456652}
+  platformRenderer: {fileID: 773864658424972345}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  crackedColor: {r: 1, g: 0, b: 0, a: 1}
