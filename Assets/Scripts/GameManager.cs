@@ -76,8 +76,7 @@ public class GameManager : MonoBehaviour
 
             AddCombo();
 
-            timingBar.IncreaseSpeed(0.05f);
-
+            timingBar.IncreaseSpeed();
             StartCoroutine(PerfectEffect());
 
             if (combo >= 5)
@@ -94,6 +93,7 @@ public class GameManager : MonoBehaviour
 
             ResetCombo();
             missCount++;
+            timingBar.DecreaseSpeed();
 
             if (missCount < maxMissesBeforeLose)
             {

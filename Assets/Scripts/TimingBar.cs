@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class TimingBar : MonoBehaviour
 {
-    public float speed = 1.5f;
 
+    [SerializeField] private float minSpeed = 1.5f;
+    [SerializeField] private float speedIncreaseAmount = 0.05f;
+    [SerializeField] private float speedDecreaseAmount = 0.15f;
+
+    public float speed = 1.5f;
     private float value; // 0 to 1
     private bool goingUp = true;
+
+    public float Speed => speed;
 
     public float Value => value;
 
@@ -31,8 +37,13 @@ public class TimingBar : MonoBehaviour
         }
     }
 
-    public void IncreaseSpeed(float amount)
+    public void IncreaseSpeed()
     {
-        speed += amount;
+        speed += speedIncreaseAmount;
+    }
+
+    public void DecreaseSpeed()
+    {
+        speed = Mathf.Max(minSpeed, speed - speedDecreaseAmount);
     }
 }
