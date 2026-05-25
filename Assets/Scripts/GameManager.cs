@@ -1,6 +1,8 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+
 public class GameManager : MonoBehaviour
 {
     private TapInput tapInput;
@@ -8,15 +10,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlatformSpawner platformSpawner;
     [SerializeField] private PlayerMover playerMover;
     [SerializeField] private Rigidbody playerRb;
+    [SerializeField] private TextMeshProUGUI comboText;
     [SerializeField] private int maxMissesBeforeLose = 3;
+
+
+    private Coroutine comboAnim;
 
     private bool isGameOver;
     private int missCount;
     private int score;
+    private int combo;
 
     private void Awake()
     {
         tapInput = GetComponent<TapInput>();
+    }
+
+    private void Start()
+    {
+        comboText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -62,9 +74,16 @@ public class GameManager : MonoBehaviour
             score++;
             Debug.Log("Score: " + score);
 
+            AddCombo();
+
             timingBar.IncreaseSpeed(0.05f);
 
             StartCoroutine(PerfectEffect());
+
+            if (combo >= 5)
+                comboText.text = "COMBO x" + combo;
+            else
+                comboText.text = "Combo x" + combo;
 
             PlatformSpawner.SpawnResult result = platformSpawner.SpawnNextPlatform();
             playerMover.MoveTo(result.TargetPosition, result.Platform);
@@ -73,6 +92,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("MISS");
 
+            ResetCombo();
             missCount++;
 
             if (missCount < maxMissesBeforeLose)
@@ -84,6 +104,69 @@ public class GameManager : MonoBehaviour
                 GameOver();
             }
         }
+    }
+
+    private void AddCombo()
+    {
+        combo++;
+        UpdateComboUI();
+        AnimateCombo();
+    }
+
+    private void ResetCombo()
+    {
+        combo = 0;
+        UpdateComboUI();
+    }
+
+    private void UpdateComboUI()
+    {
+        if (combo <= 0)
+        {
+            comboText.gameObject.SetActive(false);
+        }
+        else
+        {
+            comboText.gameObject.SetActive(true);
+            comboText.text = "Combo x" + combo;
+        }
+    }
+
+    private void AnimateCombo()
+    {
+        if (comboAnim != null)
+            StopCoroutine(comboAnim);
+
+        comboAnim = StartCoroutine(ComboPop());
+    }
+
+    private IEnumerator ComboPop()
+    {
+        Vector3 originalScale = comboText.transform.localScale;
+        Vector3 targetScale = originalScale * 1.3f;
+
+        float time = 0f;
+        float duration = 0.15f;
+
+        // scale up
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            comboText.transform.localScale = Vector3.Lerp(originalScale, targetScale, time / duration);
+            yield return null;
+        }
+
+        time = 0f;
+
+        // scale back
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            comboText.transform.localScale = Vector3.Lerp(targetScale, originalScale, time / duration);
+            yield return null;
+        }
+
+        comboText.transform.localScale = originalScale;
     }
 
     private void GameOver()
